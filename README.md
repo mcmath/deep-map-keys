@@ -30,8 +30,8 @@ let comment = {
   user_name: 'Mufasa',
   content: 'You deliberately disobeyed me.',
   viewed_by: [
-    { user_id: 3820, user_name: 'Zazu' },
-    { user_id: 8391, user_name: 'Rafiki' }
+    { user_id: 3820, user_name: 'Rafiki' },
+    { user_id: 8391, user_name: 'Zazu' }
   ]
 };
 
