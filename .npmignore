@@ -1,6 +1,9 @@
 /coverage/
-/test/
+/typings/
+/src/
+/lib/*.test.*
 /.editorconfig
-/.eslintrc.yml
 /.gitignore
 /.travis.yml
+/tsconfig.json
+/tslint.json

@@ -1,4 +1,4 @@
-# deep-map-keys
+# Deep Map Keys
 
 [![Version][version-badge]][npm]
 [![License][license-badge]][license]
@@ -6,11 +6,12 @@
 [![Coverage][coverage-badge]][coveralls]
 [![Dependencies][dependencies-badge]][gemnasium]
 
-Recurses through a JSON-like object and transforms its keys, returning a new object.
+**Deep Map Keys** recurses through an object and transforms its keys &ndash; and
+the keys of any nested objects &ndash; according to some function.
 
 ## Install
 
-Install via [npm][npm].
+Install Deep Map Keys via [npm][npm].
 
 ```sh
 npm install --save deep-map-keys
@@ -38,8 +39,11 @@ let comment = {
 let result = deepMapKeys(comment, key => {
   return key.replace(/_(\w)/g, (match, char) => char.toUpperCase());
 });
+```
 
-console.log(result); /*
+And the result will look like this:
+
+```js
 {
   commentId: 42,
   userId: 1024,
@@ -49,45 +53,74 @@ console.log(result); /*
     { userId: 3820, userName: 'Rafiki' },
     { userId: 8391, userName: 'Zazu' }
   ]
-};
-*/
+}
 ```
 
 ## API
 
-### `deepMapKeys(object, transformFn, [options])`
+#### `deepMapKeys(object, mapFn, [options])`
 
-Applies `transformFn` to each key in an object. Keys are visited recursively,
-so nested keys will be transformed. A new object is always returned; the
-original object is unmodified.
+#### Parameters
 
-##### object
-
-`object`
-
-The object whose keys are to be transformed. This object may be an `Array`.
-
-##### transformFn
-
-`function`
-
-The function to call for each key. The return value of the function
-determines the transformed value. The function is called with a single
-argument:
-
-* **key**: The key being transformed.
-
-##### options
-
-`object` (optional)
-
-An options object. The following options are accepted:
-
-* **thisArg**: Sets the value of `this` within `transformFn`.
+<table>
+  <thead>
+    <tr>
+      <th align="left">Param</th>
+      <th align="left">Type</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>object</td>
+      <td><code>any</code></td>
+      <td>
+        The object whose keys are to be transformed. Typically, this will be
+        a complex object containing other nested objects. This object may be an
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">
+        <code>Array</code></a>, in which case the keys of any objects it
+        contains will be transformed.
+      </td>
+    </tr>
+    <tr>
+      <td>mapFn</td>
+      <td><code>function</code></td>
+      <td>
+        The function used to transform each key. The function is
+        called with two arguments:
+        <ul>
+          <li>
+            <strong>key</strong> &lt;<code>string</code>&gt;
+            The key being transformed
+          </li>
+          <li>
+            <strong>value</strong> &lt;<code>any</code>&gt;
+            The value of the node whose key is being transformed
+          </li>
+        </ul>
+        The return value determines the new name of the key, and must therefore
+        be a string.
+      </td>
+    </tr>
+    <tr>
+      <td>[options]</td>
+      <td><code>object</code></td>
+      <td>
+        An optional options object. The following option is accepted:
+        <ul>
+          <li>
+            <strong>thisArg</strong> &lt;<code>any = undefined</code>&gt;
+            Sets the value of
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this"><code>this</code></a>
+            within <code>mapFn()</code>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 #### Returns
-
-`object`
 
 Returns a new object.
 
