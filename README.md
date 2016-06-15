@@ -6,6 +6,8 @@
 [![Coverage][coverage-badge]][coveralls]
 [![Dependencies][dependencies-badge]][gemnasium]
 
+[Install](#install) | [Usage](#usage) | [API](#api) | [TypeScript](#typescript) | [License](#license)
+
 **Deep Map Keys** recurses through an object and transforms its keys &ndash; and
 the keys of any nested objects &ndash; according to some function.
 
@@ -36,9 +38,11 @@ let comment = {
   ]
 };
 
-let result = deepMapKeys(comment, key => {
+function snakeToCamel(key) {
   return key.replace(/_(\w)/g, (match, char) => char.toUpperCase());
-});
+}
+
+let result = deepMapKeys(comment, snakeToCamel);
 ```
 
 And the result will look like this:
@@ -124,6 +128,24 @@ And the result will look like this:
 
 Returns a new object.
 
+## TypeScript
+
+[TypeScript][typescript] declarations are included in the package. Just import
+the module, and things will just work.
+
+The shape of the returned object cannot be inferred from the inputs; however it
+can be defined by passing a single type argument.
+
+```ts
+interface Result {
+  userName: string;
+}
+
+let result = deepMapKeys<Result>({user_name: 'Pumbaa'}, snakeToCamel);
+
+let name = result.userName; // Everything is OK :)
+```
+
 ## License
 
 Copyright &copy; 2016 Akim McMath. Licensed under the [MIT License][license].
@@ -140,3 +162,4 @@ Copyright &copy; 2016 Akim McMath. Licensed under the [MIT License][license].
 [gemnasium]: https://gemnasium.com/akim-mcmath/deep-map-keys
 [snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [camel-case]: https://en.wikipedia.org/wiki/CamelCase
+[typescript]: http://www.typescriptlang.org/
