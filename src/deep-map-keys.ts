@@ -43,8 +43,10 @@ function mapObject(obj: {[key: string]: any}, fn: MapFn, opts: Options): {[key: 
   let result: {[key: string]: any} = {};
 
   for (let key in obj) {
-    let value = obj[key];
-    result[fn.call(opts.thisArg, key, value)] = map(value, fn, opts);
+    if (obj.hasOwnProperty(key)) {
+      let value = obj[key];
+      result[fn.call(opts.thisArg, key, value)] = map(value, fn, opts);
+    }
   }
 
   return result;
