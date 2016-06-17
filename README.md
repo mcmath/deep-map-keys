@@ -11,6 +11,9 @@
 **Deep Map Keys** recurses through an object and transforms its keys &ndash; and
 the keys of any nested objects &ndash; according to some function.
 
+To transform the *values* of an object rather than its keys, use
+[Deep Map][deep-map].
+
 ## Install
 
 Install Deep Map Keys via [npm][npm].
@@ -160,6 +163,7 @@ Copyright &copy; 2016 Akim McMath. Licensed under the [MIT License][license].
 [travis]: https://travis-ci.org/akim-mcmath/deep-map-keys
 [coveralls]: https://coveralls.io/github/akim-mcmath/deep-map-keys?branch=master
 [gemnasium]: https://gemnasium.com/akim-mcmath/deep-map-keys
+[deep-map]: https://github.com/akim-mcmath/deep-map
 [snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [camel-case]: https://en.wikipedia.org/wiki/CamelCase
 [typescript]: http://www.typescriptlang.org/
