@@ -1,53 +1,65 @@
-import {isArray, isFunction, isObject, isVoid} from './lang';
+import WeakMap = require('es6-weak-map');
+import {isArray, isObject} from 'lodash';
+
+interface NonPrimitive extends Object {
+  [key: string]: any;
+  [index: number]: any;
+}
 
 export interface MapFn {
   (key: string, value: any): string;
 }
 
-export interface Options {
+export interface Opts {
   thisArg?: any;
 }
 
-export function deepMapKeys<T>(object: any, mapFn: MapFn, options?: Options): T {
-  options = isVoid(options) ? {} : options;
+export class DeepMapKeys {
 
-  if (!mapFn) {
-    throw new Error('mapFn is required');
-  } else if (!isFunction(mapFn)) {
-    throw new TypeError('mapFn must be a function');
-  } else if (!isObject(options)) {
-    throw new TypeError('options must be an object');
+  private cache = new WeakMap<NonPrimitive, any>();
+
+  constructor(
+    private mapFn: MapFn,
+    private opts: Opts
+  ) { }
+
+  public map(value: any): any {
+    return isArray(value) ? this.mapArray(value) :
+      isObject(value) ? this.mapObject(value) :
+      value;
   }
 
-  return map(object, mapFn, options);
-}
-
-function map(value: any, fn: MapFn, opts: Options): any {
-  return isArray(value) ? mapArray(value, fn, opts) :
-    isObject(value) ? mapObject(value, fn, opts) :
-    value;
-}
-
-function mapArray(arr: any[], fn: MapFn, opts: Options): any[] {
-  let result: any[] = [];
-  let len = arr.length;
-
-  for (let i = 0; i < len; i++) {
-    result.push(map(arr[i], fn, opts));
-  }
-
-  return result;
-}
-
-function mapObject(obj: {[key: string]: any}, fn: MapFn, opts: Options): {[key: string]: any} {
-  let result: {[key: string]: any} = {};
-
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      let value = obj[key];
-      result[fn.call(opts.thisArg, key, value)] = map(value, fn, opts);
+  private mapArray(arr: any[]): any[] {
+    if (this.cache.has(arr)) {
+      return this.cache.get(arr);
     }
+
+    let length = arr.length;
+    let result: any[] = [];
+    this.cache.set(arr, result);
+
+    for (let i = 0; i < length; i++) {
+      result.push(this.map(arr[i]));
+    }
+
+    return result;
   }
 
-  return result;
+  private mapObject(obj: NonPrimitive): NonPrimitive {
+    if (this.cache.has(obj)) {
+      return this.cache.get(obj);
+    }
+
+    let {mapFn, opts: {thisArg}} = this;
+    let result: NonPrimitive = {};
+    this.cache.set(obj, result);
+
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        result[mapFn.call(thisArg, key, obj[key])] = this.map(obj[key]);
+      }
+    }
+
+    return result;
+  }
 }
