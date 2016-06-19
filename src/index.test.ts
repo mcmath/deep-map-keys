@@ -35,6 +35,18 @@ describe('deepMapKeys(object, mapFn, [options])', () => {
         .should.deep.equal([1, {TWO: 2, THREE: 3, ARR: [4, {FIVE: 5}]}]);
     });
 
+    it('transforms an object with circular references', () => {
+      let obj = {one: 1, arr: [2, 3], self: null as any, arr2: null as any[]};
+      obj.self = obj;
+      obj.arr2 = obj.arr;
+
+      let exp = {ONE: 1, ARR: [2, 3], SELF: null as any, ARR2: null as any[]};
+      exp.SELF = exp;
+      exp.ARR2 = exp.ARR;
+
+      deepMapKeys(obj, caps).should.deep.equal(exp);
+    });
+
   });
 
   describe('@mapFn(key: string, value: any): string', () => {

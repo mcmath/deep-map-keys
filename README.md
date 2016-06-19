@@ -9,7 +9,8 @@
 [Install](#install) | [Usage](#usage) | [API](#api) | [TypeScript](#typescript) | [License](#license)
 
 **Deep Map Keys** recurses through an object and transforms its keys &ndash; and
-the keys of any nested objects &ndash; according to some function.
+the keys of any nested objects &ndash; according to some function. Circular
+references are supported.
 
 To transform the *values* of an object rather than its keys, use
 [Deep Map][deep-map].
@@ -86,7 +87,8 @@ And the result will look like this:
         a complex object containing other nested objects. This object may be an
         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">
         <code>Array</code></a>, in which case the keys of any objects it
-        contains will be transformed.
+        contains will be transformed. The object may contain circular
+        references.
       </td>
     </tr>
     <tr>
