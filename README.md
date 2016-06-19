@@ -116,7 +116,7 @@ And the result will look like this:
         An optional options object. The following option is accepted:
         <ul>
           <li>
-            <strong>thisArg</strong> &lt;<code>any = undefined</code>&gt;
+            <strong>thisArg</strong> &lt;<code>any=undefined</code>&gt;
             Sets the value of
             <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this"><code>this</code></a>
             within <code>mapFn()</code>
