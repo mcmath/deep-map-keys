@@ -22,25 +22,43 @@ describe('deepMapKeys(object, mapFn, [options])', () => {
   describe('@object: any', () => {
 
     it('transforms keys of simple object', () => {
-      deepMapKeys({one: 1, two: 2}, caps).should.deep.equal({ONE: 1, TWO: 2});
+      deepMapKeys({ one: 1, two: 2 }, caps).should.deep.equal({ ONE: 1, TWO: 2 });
     });
 
     it('transforms keys of object with nested objects/arrays', () => {
-      deepMapKeys({one: 1, obj: {two: 2, three: 3}, arr: [4, 5]}, caps)
-        .should.deep.equal({ONE: 1, OBJ: {TWO: 2, THREE: 3}, ARR: [4, 5]});
+      deepMapKeys({ one: 1, obj: { two: 2, three: 3 }, arr: [4, 5] }, caps)
+        .should.deep.equal({ ONE: 1, OBJ: { TWO: 2, THREE: 3 }, ARR: [4, 5] });
     });
 
     it('transforms keys of array with nested object/array', () => {
-      deepMapKeys([1, {two: 2, three: 3, arr: [4, {five: 5}]}], caps)
-        .should.deep.equal([1, {TWO: 2, THREE: 3, ARR: [4, {FIVE: 5}]}]);
+      deepMapKeys([1, { two: 2, three: 3, arr: [4, { five: 5 }] }], caps)
+        .should.deep.equal([1, { TWO: 2, THREE: 3, ARR: [4, { FIVE: 5 }] }]);
+    });
+
+    function str2ab(str: string): ArrayBuffer {
+      let buf = new ArrayBuffer(str.length * 2);
+      let bufView = new Uint16Array(buf);
+      for (let i = 0, strLen = str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+      }
+      return buf;
+    }
+    function ab2str(buf: ArrayBuffer): string {
+      return String.fromCharCode.apply(null, new Uint16Array(buf));
+    }
+
+    it('doesn\'t transform an ArrayBuffer to an empty array', () => {
+      const buffer = str2ab('test');
+      const transformed: any = deepMapKeys({ two: 2, three: 3, arr: buffer }, caps);
+      ab2str(transformed.ARR).should.be.equal('test');
     });
 
     it('transforms an object with circular references', () => {
-      let obj = {one: 1, arr: [2, 3], self: null as any, arr2: null as any[]};
+      let obj = { one: 1, arr: [2, 3], self: null as any, arr2: null as any[] };
       obj.self = obj;
       obj.arr2 = obj.arr;
 
-      let exp = {ONE: 1, ARR: [2, 3], SELF: null as any, ARR2: null as any[]};
+      let exp = { ONE: 1, ARR: [2, 3], SELF: null as any, ARR2: null as any[] };
       exp.SELF = exp;
       exp.ARR2 = exp.ARR;
 
@@ -52,27 +70,27 @@ describe('deepMapKeys(object, mapFn, [options])', () => {
   describe('@mapFn(key: string, value: any): string', () => {
 
     it('throws Error if undefined', () => {
-      deepMapKeys.bind(null, {one: 1}).should.throw(Error);
+      deepMapKeys.bind(null, { one: 1 }).should.throw(Error);
     });
 
     it('throws TypeError if not a function', () => {
-      deepMapKeys.bind(null, {one: 1}, 42).should.throw(TypeError);
+      deepMapKeys.bind(null, { one: 1 }, 42).should.throw(TypeError);
     });
 
     it('is called once per object property', () => {
-      deepMapKeys({one: 1, obj: {two: 2, three: 3}, arr: [4, 5]}, caps);
+      deepMapKeys({ one: 1, obj: { two: 2, three: 3 }, arr: [4, 5] }, caps);
       caps.should.have.callCount(5);
     });
 
     it('is called with @key as first argument', () => {
-      deepMapKeys({one: 1, arr: [2, 3]}, caps);
+      deepMapKeys({ one: 1, arr: [2, 3] }, caps);
       caps.should.have.been.calledWith('one');
       caps.should.have.been.calledWith('arr');
     });
 
     it('is called with @value as second argument', () => {
-      let {any} = sinon.match;
-      deepMapKeys({one: 1, arr: [2, 3]}, caps);
+      let { any } = sinon.match;
+      deepMapKeys({ one: 1, arr: [2, 3] }, caps);
       caps.should.have.been.calledWith(any, 1);
       caps.should.have.been.calledWithMatch(any, [2, 3]);
     });
@@ -82,18 +100,18 @@ describe('deepMapKeys(object, mapFn, [options])', () => {
   describe('@options?', () => {
 
     it('throws TypeError if defined but not an object', () => {
-      deepMapKeys.bind(null, {one: 1}, caps, 42).should.throw(TypeError);
+      deepMapKeys.bind(null, { one: 1 }, caps, 42).should.throw(TypeError);
     });
 
     describe('option: thisArg', () => {
 
       it('sets context within @mapFn', () => {
-        deepMapKeys({one: 1, arr: [2, 3]}, caps, {thisArg: 42});
+        deepMapKeys({ one: 1, arr: [2, 3] }, caps, { thisArg: 42 });
         caps.should.have.been.calledOn(42);
       });
 
       it('defaults to undefined', () => {
-        deepMapKeys({one: 1, arr: [2, 3]}, caps);
+        deepMapKeys({ one: 1, arr: [2, 3] }, caps);
         caps.should.have.been.calledOn(undefined);
       });
 

@@ -1,5 +1,5 @@
 import WeakMap = require('es6-weak-map');
-import {isArray, isObject} from 'lodash';
+import {isArray, isObject, isArrayBuffer} from 'lodash';
 
 interface NonPrimitive extends Object {
   [key: string]: any;
@@ -25,7 +25,7 @@ export class DeepMapKeys {
 
   public map(value: any): any {
     return isArray(value) ? this.mapArray(value) :
-      isObject(value) ? this.mapObject(value) :
+      isArrayBuffer(value) ? value : isObject(value) ? this.mapObject(value) :
       value;
   }
 
