@@ -4,7 +4,6 @@
 [![License][license-badge]][license]
 [![Build][build-badge]][travis]
 [![Coverage][coverage-badge]][coveralls]
-[![Dependencies][dependencies-badge]][gemnasium]
 
 [Install](#install) | [Usage](#usage) | [API](#api) | [TypeScript](#typescript) | [License](#license)
 
@@ -153,19 +152,17 @@ let name = result.userName; // Everything is OK :)
 
 ## License
 
-Copyright &copy; 2016 Akim McMath. Licensed under the [MIT License][license].
+Copyright &copy; 2016–2019 Akim McMath. Licensed under the [MIT License][license].
 
 [version-badge]: https://img.shields.io/npm/v/deep-map-keys.svg?style=flat-square
 [license-badge]: https://img.shields.io/npm/l/deep-map-keys.svg?style=flat-square
-[build-badge]: https://img.shields.io/travis/akim-mcmath/deep-map-keys/master.svg?style=flat-square
-[coverage-badge]: https://img.shields.io/coveralls/akim-mcmath/deep-map-keys/master.svg?style=flat-square&service=github
-[dependencies-badge]: https://img.shields.io/gemnasium/akim-mcmath/deep-map-keys.svg?style=flat-square
+[build-badge]: https://img.shields.io/travis/mcmath/deep-map-keys/master.svg?style=flat-square
+[coverage-badge]: https://img.shields.io/coveralls/mcmath/deep-map-keys/master.svg?style=flat-square&service=github
 [npm]: https://www.npmjs.com/package/deep-map-keys
 [license]: LICENSE
-[travis]: https://travis-ci.org/akim-mcmath/deep-map-keys
-[coveralls]: https://coveralls.io/github/akim-mcmath/deep-map-keys?branch=master
-[gemnasium]: https://gemnasium.com/akim-mcmath/deep-map-keys
-[deep-map]: https://github.com/akim-mcmath/deep-map
+[travis]: https://travis-ci.org/mcmath/deep-map-keys
+[coveralls]: https://coveralls.io/github/mcmath/deep-map-keys?branch=master
+[deep-map]: https://github.com/mcmath/deep-map
 [snake-case]: https://en.wikipedia.org/wiki/Snake_case
 [camel-case]: https://en.wikipedia.org/wiki/CamelCase
 [typescript]: http://www.typescriptlang.org/

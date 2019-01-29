@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES5",
+    "module": "CommonJS",
+    "lib": [
+      "ES5",
+      "DOM",
+      "ScriptHost",
+      "ES2015.Iterable",
+      "ES2015.Symbol",
+      "ES2015.Symbol.WellKnown"
+    ],
     "declaration": true,
     "sourceMap": true,
     "noImplicitAny": true,
@@ -11,6 +19,7 @@
   "compileOnSave": false,
   "exclude": [
     "node_modules",
-    "lib"
+    "lib",
+    "src/**/*.test.ts"
   ]
 }
