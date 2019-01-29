@@ -1,5 +1,5 @@
 import WeakMap = require('es6-weak-map');
-import {isArray, isObject} from 'lodash';
+import { isArray, isObject } from 'lodash';
 
 interface NonPrimitive extends Object {
   [key: string]: any;

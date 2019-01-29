@@ -1,25 +1,21 @@
 language: node_js
 node_js:
-  - "6"
-  - "4"
-  - "0.12"
-  - "0.10"
-before_script:
-  - npm run ci:typings
+- '6'
+- '11'
 after_success:
-  - npm run ci:coveralls
+- npm run coveralls
 before_deploy:
-  - npm run build
+- npm run build
 deploy:
   provider: npm
   email:
     secure: RgE+z8gZdN6PAaEnzPK3EGiv9crsbsVzZuVVM+TsrVwQU1R0/NzbL4nNP85vqS8ZBAIrA9adZIDGNtOpZ8ZGmbgd5CKVtizTF3HFtH2ctAmLerPY+HeniXkzt1+NoVZIzDgE78ubGgT6dRfpwmfyXzE83obdcQUVVBKQIR94295o3pu73oUj8a03IPD4Njbdsd8std+mzRPXXcgV3oVkcsuEVK5HifvzS7LC1owimpTrWvJ28qcUJXp7KZBpdCL3zFApsbhykOfToDHqf1RpXcnD74hkOC8Uc0S4a2ILeCl55OkjiJMzNyM1uqwHaBIUG5JK5+aFUMnkAsHRlrmdJoFeJpLxigUF8QZQYSRBNgzf1V7F4mt6FFd9keksOPJI25KqQdpOSC0He+4IJtpu97iXw2GOhPZ31KUg63wHsPHbqzBDk8xqLqaA+V8Z/4ccMpsQFd+/txzbVhQDZDD/jzLLM4gXsV7fhN5fxX1oZcIiFb+OnG2UYQsjdVPkVjJrDUrSC3HQQUK/XXK5/hwm28emQjBZkRFjE127HiVQi7FCHwJzSoAsypPezL3FJ3kNuSJMOkci8dc0R18kOvig0ofFtogYA/qVsmHl7BB+h0MLkzlV6Cl3DgzaArU4PUp827btZ2bFFF1I1h7FC1yfx3+wi6O1TaMRzt2sxs1hnAA=
   api_key:
-    secure: LM2UzLwKTAuxxXgIZXUb2YV/eWMJm2L5oWbL8OW8z4q5CGmAOgw+iAzqW2zI8daozY3u49oY4aRM1emBjmS3rl12CFHoS1WAO49ypHfwEcWYmHIvEoBanIrVDrapJhv6CYMQKGlUfdTDEpw+cUVY+Vi/ioVBCCgeT0dljtW5JnVFhYeZ2e2P9yazXYMnMbB1Fdb42TY5WyBxAtXqPd0kdgiNuYTETWibKJc1h5ttV0LVGnV78ta+K/+M5DO1/AHE28raIfaH+HMaEcXbA7ygfWedQlcoXZNUe/twQNF3ihfBxBbtVwjCWXwwgkzJG6Exsy6rjmyVTg6p+FDFy1mHgLEJmXHBcBID4kwH+Qg1gnwob+bONUVzVsx946ppxItzshxyUBBayUEovH9Jgr5vf2Jm0ZYHAazZToOvr4NMRdK1MdrsSKKLNluwT/iXbW581SkBtHjTmpCBWS944UDBOYbxXgIT21p98veK99Hiksaqr4VErMMD9UBefyEl5jhC7QmyqH88IF0LlAHOdGGdWHvCbS9MhwsJM6zVLBmLDe237lOoq6Ib2TZGKAT69B1Qd1wuhc5PQtc6S5hRMRaClV3JFHXvdNMZ6B+ISNHzV76xCH3hxfv1/TJjZrsOHgpcqgQ4IWhkPFrgG3Dc5PG/WBwAE2jKmevvK4T5b2G5Cyg=
+    secure: EGx9TMunLPYj8CSHz/sYKR6cjo7gMTt0x2+ONz8RemtxwwYMDopAesM6Azc4xuu1gvgf93W3EAb2kmUitUFOpVcWfynt8QnDZv3dfX6FEsqDYQal0FGRNL8ApKfMVasLMv0bHveCPGiss0hIZQ2IPkHHLpv5x55PDH0d1RwwagTMY6U5lpWj/UdbBqQ6j9Gd0rRAYGUWqUSmEb7IvPb4Qis0Ty074L6mGs49wn4RaX/9w9WkaRFLRoKY6rM9CnXqEwuozXyflc6Vm2vMiDly5sKGBfoNmuhSxV5az6qwiVYEMcoIkpGgl4NRPtacdjvf/9nhJxJvCpXP67hCebnkyyvDBs8IE5wXVPeZXHPqNrE7EV9ebg65cUEoWp1LRebRV8KdPp88G1IkOOHOQHcNfWi63EakZsnIJI+h5EjDR9MLNtOlyN9edH/yPJrrUAe8+CXgeWqALr6UFRybLh3nf/hLXnmsYkUNfXXTcWnc+QLgRcGUch7Wjtth25uwir+y0GqYJ5eDbAoxgNtFeSnlRZlRy68huZEZc6xD3V7qiylbb9FPGEXHqkyrAVP0LVh+MX315nwAqRp8Vl7TbXH2EPPtUPBLde6WnX/gxO39Z7Q0gb89QrVEthxiDRR39ncBDxfWQmnvxo9VHu/RoEGPxhAse8rujIfu1Wck640nXvw=
   skip_cleanup: true
   on:
-    repo: akim-mcmath/deep-map-keys
-    node: "4"
+    repo: mcmath/deep-map-keys
+    node: '11'
     tags: true
 after_deploy:
-  - npm run build:remove
+- npm run clean

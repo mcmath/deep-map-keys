@@ -1,5 +1,5 @@
-import {isFunction, isNil, isObject} from 'lodash';
-import {DeepMapKeys, MapFn, Opts} from './deep-map-keys';
+import { isFunction, isNil, isObject } from 'lodash';
+import { DeepMapKeys, MapFn, Opts } from './deep-map-keys';
 
 function deepMapKeys<T>(object: any, mapFn: MapFn, options?: Opts): T {
   options = isNil(options) ? {} : options;

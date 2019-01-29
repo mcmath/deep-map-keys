@@ -2,21 +2,19 @@
   "name": "deep-map-keys",
   "version": "1.2.0",
   "description": "Transforms nested keys of complex objects",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
-    "build:compile": "tsc",
-    "build:remove": "rimraf lib",
-    "build": "npm run build:remove && npm run build:compile",
+    "clean": "rimraf lib",
+    "build": "npm run clean && tsc",
     "test:lint": "tslint 'src/**/*.ts'",
     "test:unit": "istanbul cover -e .ts -x '*.test.ts' _mocha -- src --opts mocha.opts",
     "test:report": "npm test && open coverage/lcov-report/index.html",
     "test": "npm run test:lint && npm run test:unit",
-    "ci:typings": "typings install",
-    "ci:coveralls": "cat coverage/lcov.info | coveralls"
+    "coveralls": "cat coverage/lcov.info | coveralls"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": ">=6"
   },
   "keywords": [
     "map",
@@ -31,31 +29,36 @@
     "typescript",
     "typings"
   ],
-  "author": "Akim McMath <akim.elijah.mcmath@gmail.com>",
+  "author": "Akim McMath <akim@mcmath.io> (http://www.mcmath.io/)",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "coveralls": "^2.11.9",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/sinon": "^7.0.5",
+    "@types/sinon-chai": "^3.2.2",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
     "istanbul": "1.0.0-alpha.2",
-    "mocha": "^2.5.3",
+    "mocha": "^5.2.0",
     "rimraf": "^2.5.2",
-    "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0",
-    "ts-node": "^0.9.1",
-    "tslint": "^3.11.0",
-    "typescript": "^1.8.10",
-    "typings": "^1.1.0"
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.3.0",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
+    "@types/es6-weak-map": "^1.2.0",
+    "@types/lodash": "^4.14.120",
     "es6-weak-map": "^2.0.1",
     "lodash": "^4.13.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akim-mcmath/deep-map-keys.git"
+    "url": "git+https://github.com/mcmath/deep-map-keys.git"
   },
   "bugs": {
-    "url": "https://github.com/akim-mcmath/deep-map-keys/issues"
+    "url": "https://github.com/mcmath/deep-map-keys/issues"
   },
-  "homepage": "https://github.com/akim-mcmath/deep-map-keys#readme"
+  "homepage": "https://github.com/mcmath/deep-map-keys#readme"
 }
