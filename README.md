@@ -11,7 +11,7 @@
 the keys of any nested objects &ndash; according to some function. Circular
 references are supported.
 
-To transform the *values* of an object rather than its keys, use
+To transform the _values_ of an object rather than its keys, use
 [Deep Map][deep-map].
 
 ## Install
@@ -122,6 +122,9 @@ And the result will look like this:
             <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this"><code>this</code></a>
             within <code>mapFn()</code>
           </li>
+          <li>
+            <strong>shouldTransformFn</strong> &lt;<code>function</code>&gt; Function used to customize whether a value in the object should be deeply/recursively mapped. The function receives a key and a value and must output a boolean.
+          </li>
         </ul>
       </td>
     </tr>
@@ -145,7 +148,7 @@ interface Result {
   userName: string;
 }
 
-let result = deepMapKeys<Result>({user_name: 'Pumbaa'}, snakeToCamel);
+let result = deepMapKeys<Result>({ user_name: 'Pumbaa' }, snakeToCamel);
 
 let name = result.userName; // Everything is OK :)
 ```

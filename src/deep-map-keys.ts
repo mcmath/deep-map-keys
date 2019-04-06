@@ -12,6 +12,7 @@ export interface MapFn {
 
 export interface Opts {
   thisArg?: any;
+  shouldTransformFn?: (key?: string, value?: any) => boolean;
 }
 
 export class DeepMapKeys {
@@ -50,13 +51,16 @@ export class DeepMapKeys {
       return this.cache.get(obj);
     }
 
-    let {mapFn, opts: {thisArg}} = this;
+    let {mapFn, opts: {thisArg, shouldTransformFn}} = this;
     let result: NonPrimitive = {};
     this.cache.set(obj, result);
 
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
-        result[mapFn.call(thisArg, key, obj[key])] = this.map(obj[key]);
+        result[mapFn.call(thisArg, key, obj[key])] =
+          (!shouldTransformFn || shouldTransformFn(key, obj[key])) ?
+            this.map(obj[key]) :
+            obj[key];
       }
     }
 

@@ -99,6 +99,17 @@ describe('deepMapKeys(object, mapFn, [options])', () => {
 
     });
 
+    describe('option: shouldTransformFn', () => {
+      it('prevents mapping through values for which @shouldTransformFn returns false', () => {
+        let shouldTransformFn = sinon.spy((key: string, value: any) => key !== 'noTransform');
+        let obj = {one: 1, noTransform: {two: 2}};
+
+        deepMapKeys(obj, caps, {shouldTransformFn}).should.deep.equal({ONE: 1, NOTRANSFORM: {two: 2}});
+        shouldTransformFn.should.have.been.calledWith('one', 1);
+        shouldTransformFn.should.have.been.calledWith('noTransform', {two: 2});
+      });
+    });
+
   });
 
 });
