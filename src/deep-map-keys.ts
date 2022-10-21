@@ -55,7 +55,7 @@ export class DeepMapKeys {
     this.cache.set(obj, result);
 
     for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
+      if (Object.hasOwnProperty.call(obj, key)) {
         result[mapFn.call(thisArg, key, obj[key])] = this.map(obj[key]);
       }
     }

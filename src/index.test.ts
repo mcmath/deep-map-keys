@@ -102,3 +102,12 @@ describe('deepMapKeys(object, mapFn, [options])', () => {
   });
 
 });
+
+it('handles null prototype objects', () => {
+  const caps = (key: string) => key.toUpperCase(); 
+
+  const nullProtoObj = Object.create(null);
+  nullProtoObj.foo = 'bar';
+
+  deepMapKeys(nullProtoObj, caps).should.deep.equal({ FOO: 'bar' });
+});
